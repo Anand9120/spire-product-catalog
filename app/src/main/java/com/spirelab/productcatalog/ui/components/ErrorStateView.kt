@@ -12,9 +12,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.WifiOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -30,7 +32,9 @@ fun ErrorStateView(
     message: String,
     onRetry: () -> Unit,
     modifier: Modifier = Modifier,
-    title: String = "Something went wrong"
+    title: String = "Something went wrong",
+    secondaryButtonText: String? = null,
+    onSecondaryAction: (() -> Unit)? = null
 ) {
     Box(
         modifier = modifier
@@ -87,6 +91,25 @@ fun ErrorStateView(
                     text = "Try Again",
                     style = MaterialTheme.typography.labelLarge
                 )
+            }
+
+            if (secondaryButtonText != null && onSecondaryAction != null) {
+                Spacer(modifier = Modifier.height(12.dp))
+                FilledTonalButton(
+                    onClick = onSecondaryAction,
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.ShoppingCart,
+                        contentDescription = null,
+                        modifier = Modifier.size(18.dp)
+                    )
+                    Spacer(modifier = Modifier.size(8.dp))
+                    Text(
+                        text = secondaryButtonText,
+                        style = MaterialTheme.typography.labelLarge
+                    )
+                }
             }
         }
     }

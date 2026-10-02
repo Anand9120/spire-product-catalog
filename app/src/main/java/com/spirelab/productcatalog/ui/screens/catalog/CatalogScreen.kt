@@ -153,7 +153,9 @@ fun CatalogScreen(
                     uiState.errorMessage != null && uiState.products.isEmpty() -> {
                         ErrorStateView(
                             message = uiState.errorMessage ?: "Failed to connect to the server.",
-                            onRetry = viewModel::onRetry
+                            onRetry = viewModel::onRetry,
+                            secondaryButtonText = if (uiState.cartItemCount > 0) "Open Offline Cart (${uiState.cartItemCount} items)" else null,
+                            onSecondaryAction = if (uiState.cartItemCount > 0) onNavigateToCart else null
                         )
                     }
 
